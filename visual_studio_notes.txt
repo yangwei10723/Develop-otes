@@ -1,0 +1,15 @@
+visual assist 快捷键
+| Name | ShortCutKey |
+|------|-------------|
+|      |             |
+|      |             |
+|      |             |
+|      |             |
+
+
+Alt + M		
+
+
+
+BracesAdd		
+shift+alt+;
