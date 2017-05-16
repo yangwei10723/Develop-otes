@@ -2,23 +2,14 @@ Sublime常用插件
 0.先安装Package Control
 	快捷键Ctrl+Shift+P打开命令输入窗口
 	安装好Package后在命令输入窗口输入Install Package，便可输入插件名称，搜索需要的插件
-
+	所有插件列表：https://packagecontrol.io/
 1.Table Editor
 	表格编辑工具
 	Preferences->Package Settings->Table Editor->README查看详细的使用手册
 	开启Table Editor：在命令窗口中输入Table Editor,选择*Table Editor: Enable for current syntax* or *Table Editor: Enable for current view* or "Table Editor: Set table syntax ... for current view"
 	输入表头如下，然后tab键
-	|  name | age |    phone     |   |
-	|=======|=====|==============|===|
-	|     1 |     | 1            |   |
-	|     1 |     | fdafasdffadf daf|   |
-	| 13123 |     | 214124       |   |
-	| 12312 |     | 2415         |   |
-	|       |     |              |   |
-	|       |     |              |   |
-	|       |     |              |   |
-	|       |     |              |   |
-	|       |     |              |   |
+	|  name | age |
+	|-
 
 	ctrl+enter:离开表格
 	
@@ -32,16 +23,9 @@ Sublime常用插件
 	删除行：alt+shift+up
 	移动行：alt+up(down)
 
+2.Bracket Highlight
 
-
-| name  |  phone      | age       |
-| <<<<< | ########### | >>>>>>>>> |
-|-------|-------------|-----------|
-| afa   | fafaf fahek | fawoefhwo |
-|       |   fhawkeh   |           |
-|-------|-------------|-----------|
-| 41241 |             |           |
-|       |             |           |
+3.Diffy：差异对比工具
 
 
 
