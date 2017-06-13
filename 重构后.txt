@@ -1,95 +1,3 @@
-enum XItemType
-{
-	Undefined = 0,
-	// 1-30 滑块
-	Normal = 1,             //普通滑块
-	VerticalBomb = 2,       //竖炸弹
-	HorizonBomb = 3,        //横炸弹
-	RhombicBomb = 4,        //菱形炸弹
-	UniversalColor = 5,     //彩虹滑块
-	Banana = 6,             //香蕉
-	GlobeFish = 7,          //河豚
-	GlobeFishBomb = 8,      //河豚炸弹
-	SquareBomb = 9,         //九宫格方形炸弹
-    CountDownBomb = 10,     //倒计时炸弹
-    OneEye = 11,            //大眼仔
-    PresentBox = 12,        //礼物盒
-
-    // 1-60 block
-    Mouse = 31
-    MouseHole = 32
-    Bush = 33
-    Egg = 34
-
-    // 61-90 ground
-
-    // 91-120 attachmentItem
-
-    // 121-150 multigridItem
-}
-
-
-struct XHitInfo
-{
-	bool isDirectly;
-	XDestructType destructType;
-	XItemType triggerItemType;
-}
-
-XRespawn
-	public abstruct void PlayInAnimation(float delay);
-	public abstruct void playOutAnimation(float delay);
-
-XBaseItem : XRespawn
-	private XItemType itemType;
-	private int _maxHP;
-	private int _curHp;
-	protected abstruct void OnHpChange();
-	public abstruct void OnHit(XHitInfo hitInfo);	
-	protected abstruct void Destruct(XHitInfo hitInfo);
-	protected virtual void PlayOnHitSFx();
-	protected virtual void PlayOnHitFx();	
-	public virtual void LevelFinishDestruct();
-
-
-XBaseKitty : XBaseItem
-
-XGround : XBaseItem
-
-XBlock : XBaseItem
-
-XMultiGridItem : XBaseItem
-
-
-XGrid : XRespawn
-	public XGridInfo gridInfo
-	public Dictionary<XItemType, XBaseItem> itemDict;
-	public void OnHit()
-	{
-		if (有障碍物)
-		else if(有附着物)
-		else
-		{
-			if (有滑块)
-			if (有冰块)
-		}
-	}
-
-	void HitByNeibour(XHitInfo hitInfo)
-	{
-
-	}
-
-	void OnSwapItemFinished();
-	void OnItemMoveFinished();
-	void TryDestructBanana();
-
-
-
-重构后需要测试的功能：
-	正常的三消，掉落，障碍物，地形，多格子物体的基础功能是否正常，
-	刷新局面
-
 
 +新增
 +新增判断物体能否被隔壁的滑块消除hit到？
@@ -100,12 +8,6 @@ XGrid : XRespawn
 +物体新增属性，能否被周边格子的消除hit到
 +物体新增属性，合成特效时，能被替换掉
 +合成特效时能被替换掉
-
-填充局面
-
-
-刷新局面
-	每一帧尝试刷新20次，刷新50帧，1000次后允许形成三消
 
 
 
@@ -121,8 +23,6 @@ XGrid : XRespawn
 		关卡结束
 +用户操作结束
 +回合自动操作结束判定
-
-
 
 
 
@@ -142,13 +42,6 @@ XGrid : XRespawn
 
 
 引爆特效块，但是特效块上有附着物时怎么处理
-
-
-74关裁剪有问题
-81关附着物的status一直是destruct导致卡死
-
-描述指引不能遮住滑块
-
 
 
 实时局面
@@ -181,86 +74,6 @@ XGrid : XRespawn
 	6.查找Move, UpdateMove
 		如果有Move，回合结束
 		如果没有Move，刷新局面，回到步骤3
-
-
-
-XMatchController中记录所有正在移动的滑块，滑块
-
-
-消除-》补子下落-》查找消除
-
-
-
-XLevelManager判定子关卡结束
-	触发onPreHandleSubLevelFinishedEvent
-		XGameEventController.OnPreHandleSubLevelFinished
-回调XLevelManager.HandleSubLevelFinished，
-	如果是最后一个子关卡，触发onPreHandleLevelFinishedEvent
-		XGameEventController.OnPreHandleLevelFinished
-		回调XLevelManager.HanddleLevelFinished
-			触发onPostHandleLevelFinished
-	如果不是最后一个子关卡...
-
-
-删除XBaseKittyInfo
-kittyInfo掉落完
-	
-
-
-结算界面功能测试：
-	关卡失败界面，
-		重新玩			OK
-		返回地图		OK
-	暂停界面
-		重新玩			OK
-		返回地图		OK
-	关卡死局界面
-		重新玩			OK
-		返回地图		OK
-	关卡胜利界面
-		重新玩			OK
-		下一关			OK
-		返回地图		OK
-
-
-
-
-
-
-物体基础功能
-	// 1-30 滑块
-    Normal = 1,             	OK
-    VerticalBomb = 2,       	OK
-    HorizonBomb = 3,        	OK
-    RhombicBomb = 4,        	OK
-    UniversalColor = 5,     	OK
-    Banana = 6,             	OK
-    PresentBox = 12,        	OK
-    Chameleon = 13,         	OK
-    TimeRecover = 14,      		OK
-    Mouse = 31,					OK
-    MouseHole = 32,				OK
-    Bush = 33,					OK
-    PoisonousJelly = 35,		OK
-    Ice = 61,					OK
-    GrayFurBall = 92,			OK
-    Vine = 93,					OK
-    Lolly = 121,				OK
-    MeatBlock = 122,			
-
-
-特效混合功能
-	彩虹+普通 		OK
-	彩虹+菱形 		OK
-	彩虹+条纹		OK
-	彩虹+彩虹 		OK
-	条纹+条纹		OK
-	条纹+菱形 		OK
-	菱形+菱形 		OK
-
-
-
-
 
 
 
@@ -314,9 +127,11 @@ bug:
 			等所有的消除都结束了，更新重力
 			等重力更新完刷新局面，
 	    ->即时模式，
-	    	当有GameItem消除时，如果格子可以补块，则更新重力（）
-	    	如果是最后一个消除时，如果消除的是滑块，并且滑块是某个Move的滑块，并且格子无法补滑块则刷新局面
+	    	当有GameItem消除时，如果格子可以补块，则更新重力
+	    	否则，如果局面静止则刷新局面。
+	    	
 	    	如果有滑块已经落到格子，如果是香蕉则直接消除，否则尝试查找新补的滑块是否能消除
+	    	如果是最后一块
 
 
 
@@ -327,8 +142,30 @@ bug:
 		没有，继续往下
 	2.局面是否静止，
 		非静止，分会
-		静止，继续往下
-	3.关卡结果检测
+		静止，继续往下	
+	3.机关行为
+	  如果机关行为
+	
+	4.关卡结果检测
 		关卡已结束，返回
 		关卡未结束， 继续
-	4.
+	5.查找Move
+		如果找到了Move继续，
+		如果没有找到Move，刷新局面
+		
+
+直接调用CheckSituation的地方
+	加载完关卡
+	所有的滑块都掉落结束
+	setdirtyba
+
+
+
+
+
+	XMatchController中遍历Item.Update
+	item.Update()，onKittyDropDown会调用LevelFinishCheck，会导致清空itemList
+
+
+	itemChanges时检测局面或者消除的问题：
+		当彩虹和特效块互换时，有可能会有三消
