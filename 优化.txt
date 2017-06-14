@@ -1,0 +1,19 @@
+优化：
+
+Spine优化：
+	1.使用二进制格式数据代替json格式数据(加载解析更快)，
+		NOTE:atlas文件记得加上.txt后缀，skel文件记得加上.bytes后缀
+	2.在加载关卡时预先解析skel数据
+
+简化关卡配置的数据，减小配置文件大小
+
+
+
+
+
+
+
+
+三消参考：
+	http://www.html5gamedevs.com/topic/17608-match-three-puzzle-games-algorithm/
+	http://androidgamify.blogspot.com/2013/11/match-3-game-algorithm-part-4-how-to.html
