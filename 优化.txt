@@ -11,6 +11,8 @@ Spine优化：
 
 flood-fill算法
 
+1.优化Prefabspool.RemoveGameObject
+2.切换关卡时的大量的Deactive和Active
 
 
 
